@@ -1,19 +1,21 @@
-export function validateVehicleData(values) {
+export function validateVehicle(values) {
+  const v = values || {};
   const errors = {};
 
-  if (!values.licensePlate) {
-    errors.licensePlate = "La placa es requerida";
-  } else if (values.licensePlate.length < 3 || values.licensePlate.length > 10) {
-    errors.licensePlate = "La placa debe tener entre 3 y 10 caracteres";
+  const brand = (v.brand || "").trim();
+  const model = (v.model || "").trim();
+  const plate = (v.plate || "").trim().toUpperCase();
+
+  if (!brand) errors.brand = "La marca es obligatoria.";
+  if (!model) errors.model = "El modelo es obligatorio.";
+  if (!plate) errors.plate = "La placa es obligatoria.";
+  if (plate && !/^[A-Z0-9-]{5,10}$/.test(plate)) {
+    errors.plate = "Formato de placa inválido (ej: ABC-1234).";
   }
 
-  if (!values.brand) {
-    errors.brand = "La marca es requerida";
-  }
-
-  if (!values.model) {
-    errors.model = "El modelo es requerido";
-  }
-
-  return errors;
+  return {
+    ok: Object.keys(errors).length === 0,
+    errors,
+    normalized: { brand, model, plate },
+  };
 }

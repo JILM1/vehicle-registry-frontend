@@ -38,10 +38,10 @@ export default function VehicleFormPage({ mode }) {
     })();
   }, [isEdit, id, nav]);
 
-  function onChange(field, val) {
-    setValues((p) => ({ ...p, [field]: val }));
-    setErrors((p) => ({ ...p, [field]: undefined }));
-  }
+function onChange(field, val) {
+  setValues((p) => ({ ...(p || {}), [field]: val }));
+  setErrors((p) => ({ ...(p || {}), [field]: undefined }));
+}
 
   async function onSubmit(e) {
     e.preventDefault();
