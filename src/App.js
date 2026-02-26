@@ -12,6 +12,7 @@ function App() {
         <Route path="/vehicles/new" element={<VehicleformPage mode="create" />} />
         <Route path="/vehicles/:id/edit" element={<VehicleformPage />} />
       </Routes>
+    </browserRouter>
   );
 }
 
